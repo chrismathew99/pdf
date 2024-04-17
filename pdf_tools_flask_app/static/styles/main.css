@@ -1,0 +1,95 @@
+/* main.css - Styling for PDF Tools Flask Application */
+
+/* Base layout styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+footer {
+    background-color: #333;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Form styles */
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #cccccc;
+    margin-top: 20px;
+}
+
+input[type="file"] {
+    margin-bottom: 20px;
+}
+
+/* Button styles */
+button {
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.extract-text-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.convert-image-btn {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.convert-excel-btn {
+    background-color: #ffc107;
+    color: white;
+}
+
+convert-word-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.convert-ppt-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+}
+
+/* Utility classes */
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}

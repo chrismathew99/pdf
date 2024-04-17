@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends "base.html" %}
+    {% block head %}
+    <meta charset="UTF-8">
+    <title>Upload PDF</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+    <div class="container">
+        <h2>Upload PDF File</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="pdfFile">Select PDF:</label>
+                <input type="file" id="pdfFile" name="pdfFile" required>
+            </div>
+            <button type="submit" class="btn-upload">Upload</button>
+        </form>
+    </div>
+    {% endblock %}
+</body>
+</html>
