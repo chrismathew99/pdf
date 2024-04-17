@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Manipulation Options</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Choose an option for your PDF</h1>
+        <form action="/merge" method="post" enctype="multipart/form-data">
+            <input type="file" name="files" multiple>
+            <button type="submit" class="btn">Merge PDFs</button>
+        </form>
+        <form action="/split" method="post">
+            <input type="hidden" name="filename" value="{{ filename }}">
+            <button type="submit" class="btn">Split PDF</button>
+        </form>
+        <form action="/extract_text" method="post">
+            <input type="hidden" name="filename" value="{{ filename }}">
+            <button type="submit" class="btn">Extract Text</button>
+        </form>
+        <form action="/convert_to_image" method="post">
+            <input type="hidden" name="filename" value="{{ filename }}">
+            <button type="submit" class="btn">Convert to Image</button>
+        </form>
+        <a href="{{ url_for('index') }}" class="btn">Upload Another PDF</a>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

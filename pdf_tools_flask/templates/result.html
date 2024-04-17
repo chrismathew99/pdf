@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Manipulation Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>PDF Manipulation Result</h1>
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+        {% if text %}
+            <div class="text-result">
+                <h2>Extracted Text</h2>
+                <textarea readonly style="width:100%; height:200px;">{{ text }}</textarea>
+            </div>
+        {% endif %}
+        {% if filename %}
+            <div class="file-result">
+                <h2>Result File</h2>
+                <a href="{{ url_for('static', filename='uploads/' + filename) }}" download>Download {{ filename }}</a>
+            </div>
+        {% endif %}
+        {% if images %}
+            <div class="image-result">
+                <h2>Converted Images</h2>
+                {% for image in images %}
+                    <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="Converted Image">
+                {% endfor %}
+            </div>
+        {% endif %}
+        <a href="{{ url_for('index') }}" class="btn">Upload Another PDF</a>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
