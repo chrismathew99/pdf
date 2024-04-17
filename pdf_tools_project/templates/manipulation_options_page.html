@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Manipulation Options</title>
+    <link rel="stylesheet" href="./static/css/style.css">
+    <script src="./static/js/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>PDF Tools</h1>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Select an option to manipulate your PDF</h2>
+            <div class="button-container">
+                <form action="/merge_pdfs" method="post" class="form-manipulate">
+                    <input type="submit" value="Merge PDFs" class="button button-merge">
+                </form>
+                <form action="/split_pdf" method="post" class="form-manipulate">
+                    <input type="submit" value="Split PDF" class="button button-split">
+                </form>
+                <form action="/extract_text" method="post" class="form-manipulate">
+                    <input type="submit" value="Extract Text" class="button button-extract">
+                </form>
+                <form action="/convert_to_image" method="post" class="form-manipulate">
+                    <input type="submit" value="Convert to Image" class="button button-convert-image">
+                </form>
+                <form action="/convert_to_excel" method="post" class="form-manipulate">
+                    <input type="submit" value="Convert to Excel" class="button button-convert-excel">
+                </form>
+                <form action="/convert_to_word" method="post" class="form-manipulate">
+                    <input type="submit" value="Convert to Word" class="button button-convert-word">
+                </form>
+                <form action="/convert_to_powerpoint" method="post" class="form-manipulate">
+                    <input type="submit" value="Convert to PowerPoint" class="button button-convert-ppt">
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
