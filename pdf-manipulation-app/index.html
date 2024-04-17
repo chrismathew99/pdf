@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Manipulation App</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <script defer src="scripts/pdfManipulation.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>PDF Manipulation Tools</h1>
+        </header>
+        <form id="pdf-form" enctype="multipart/form-data">
+            <div class="file-upload">
+                <input type="file" id="pdf-file-input" accept="application/pdf">
+            </div>
+            <div class="conversion-options">
+                <label for="conversion-type-select">Choose conversion type:</label>
+                <select id="conversion-type-select" class="custom-dropdown">
+                    <option value="">Select Conversion</option>
+                    <option value="toWord">PDF to Word</option>
+                    <option value="toImage">PDF to Image</option>
+                    <option value="toExcel">PDF to Excel</option>
+                    <option value="compress">Compress PDF</option>
+                </select>
+            </div>
+            <div class="action-buttons">
+                <button type="button" id="convert-btn" class="btn">Convert</button>
+            </div>
+        </form>
+        <section id="result-section" class="results" style="display: none;">
+            <h2>Conversion Results</h2>
+            <!-- Results will be appended here -->
+        </section>
+    </div>
+</body>
+</html>
