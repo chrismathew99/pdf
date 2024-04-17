@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload PDF</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PDF Tools - Upload</h1>
+        </header>
+        <section>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="pdfFile">Select PDF file to upload:</label>
+                    <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required>
+                </div>
+                <button type="submit" class="btn-upload">Upload PDF</button>
+            </form>
+        </section>
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Manipulation Options</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    {% extends "base_layout.html" %}
+    {% block content %}
+    <div class="container">
+        <h1>PDF Manipulation Options</h1>
+        <div class="options">
+            <form action="/merge" method="post">
+                <button type="submit" class="btn merge">Merge PDF</button>
+            </form>
+            <form action="/split" method="post">
+                <button type="submit" class="btn split">Split PDF</button>
+            </form>
+            <form action="/extract-text" method="post">
+                <button type="submit" class="btn extract-text">Extract Text</button>
+            </form>
+            <form action="/convert-to-image" method="post">
+                <button type="submit" class="btn convert-to-image">Convert to Image</button>
+            </form>
+            <form action="/pdf-to-powerpoint" method="post">
+                <button type="submit" class="btn pdf-to-powerpoint">PDF to PowerPoint</button>
+            </form>
+            <form action="/pdf-to-excel" method="post">
+                <button type="submit" class="btn pdf-to-excel">PDF to Excel</button>
+            </form>
+            <form action="/pdf-to-word" method="post">
+                <button type="submit" class="btn pdf-to-word">PDF to Word</button>
+            </form>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>
