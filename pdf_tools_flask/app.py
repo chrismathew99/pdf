@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file
+from flask import Flask, request, render_template, send_file, abort
 from werkzeug.utils import secure_filename
 import os
 from PyPDF2 import PdfFileReader, PdfFileWriter, PdfFileMerger
@@ -29,7 +29,7 @@ def upload_file():
     if file.filename == '':
         return render_template('result.html', message='No selected file')
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename) # Sanitize the filename
+        filename = secure_filename(file.filename)  # Sanitize the filename
         filename = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filename)
         return render_template('options.html', filename=file.filename)
@@ -38,11 +38,18 @@ def upload_file():
 
 @app.route('/merge', methods=['POST'])
 def merge_pdfs():
-    files = request.form.getlist('files')
+    files = request.files.getlist('file')
+    if len(files) != 2:
+        return render_template('result.html', message='Please upload exactly two PDF files.')
     merger = PdfFileMerger()
-    for filename in files:
-        filename = secure_filename(filename) # Sanitize the filename
-        merger.append(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    for file in files:
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)  # Sanitize the filename
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+            merger.append(filepath)
+        else:
+            return render_template('result.html', message='Invalid file format')
     output = io.BytesIO()
     merger.write(output)
     output.seek(0)
@@ -51,24 +58,29 @@ def merge_pdfs():
 @app.route('/split', methods=['POST'])
 def split_pdf():
     filename = request.form['filename']
-    filename = secure_filename(filename) # Sanitize the filename
+    filename = secure_filename(filename)  # Sanitize the filename
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    pdf = PdfFileReader(filepath)
-    outputs = []
-    for page in range(pdf.getNumPages()):
-        pdf_writer = PdfFileWriter()
-        pdf_writer.addPage(pdf.getPage(page))
-        output = io.BytesIO()
-        pdf_writer.write(output)
-        output.seek(0)
-        outputs.append(output)
-    # For simplicity, return only the first page as a response
-    return send_file(outputs[0], attachment_filename=f'split_{filename}', as_attachment=True)
+    try:
+        pdf = PdfFileReader(filepath)
+        outputs = []
+        for page in range(pdf.getNumPages()):
+            pdf_writer = PdfFileWriter()
+            pdf_writer.addPage(pdf.getPage(page))
+            output_filename = os.path.join(app.config['UPLOAD_FOLDER'], f'split_{filename}_page_{page}.pdf')
+            with open(output_filename, 'wb') as output_pdf:
+                pdf_writer.write(output_pdf)
+            outputs.append(output_filename)
+    except Exception as e:
+        return abort(500, description=f"Error processing file: {str(e)}")
+    try:
+        return send_file(outputs[0], attachment_filename=os.path.basename(outputs[0]), as_attachment=True)
+    except Exception as e:
+        return abort(500, description=f"Error sending file: {str(e)}")
 
 @app.route('/extract_text', methods=['POST'])
 def extract_text():
     filename = request.form['filename']
-    filename = secure_filename(filename) # Sanitize the filename
+    filename = secure_filename(filename)  # Sanitize the filename
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     pdf = PdfFileReader(filepath)
     text = ''
@@ -79,19 +91,13 @@ def extract_text():
 @app.route('/convert_to_image', methods=['POST'])
 def convert_to_image():
     filename = request.form['filename']
-    filename = secure_filename(filename) # Sanitize the filename
+    filename = secure_filename(filename)  # Sanitize the filename
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     images = convert_from_path(filepath)
-    # For simplicity, save and return only the first page as an image
     image_path = os.path.join(app.config['UPLOAD_FOLDER'], f'{filename}.jpg')
     images[0].save(image_path, 'JPEG')
     return send_file(image_path, as_attachment=True)
 
-# Error handling and security practices are important considerations omitted in the initial version of the code.
-# Here, we've added filename sanitation to protect against path traversal vulnerabilities. However, for a
-# complete and secure implementation, consider adding validation for the content of PDFs and handling exceptions gracefully.
-
 if __name__ == '__main__':
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
-    app.run(debug=True)
