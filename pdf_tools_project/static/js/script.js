@@ -1,5 +1,3 @@
-// script.js
-
 document.addEventListener("DOMContentLoaded", function() {
     // Initialize any variables or states needed
     const uploadForm = document.getElementById("uploadForm");
@@ -22,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             };
 
-            // Handle the response from the server
+            // Handle the response from the server with enhanced error handling
             xhr.onload = function() {
                 if (xhr.status >= 200 && xhr.status < 300) {
                     // Process success
@@ -30,7 +28,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     displayMessage("success", "PDF processed successfully. " + response.message);
                 } else {
                     // Process failure
-                    displayMessage("error", "Error processing PDF. Please try again.");
+                  try {
+                      const response = JSON.parse(xhr.responseText);
+                      const errorMessage = response.error ? response.error : "Error processing PDF. Please try again.";
+                      displayMessage("error", errorMessage);
+                  } catch (e) {
+                      // If response is not JSON or doesn't have an 'error' field, display generic error
+                      displayMessage("error", "Error processing PDF. Please try again.");
+                  }
                 }
             };
 
@@ -54,4 +59,3 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Optionally, you can add more event listeners or functions to handle other interactions
     // remember to check if elements exist before adding event listeners to avoid errors
-});

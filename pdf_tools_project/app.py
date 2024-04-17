@@ -8,6 +8,7 @@ from pptx import Presentation
 import io
 import zipfile
 from werkzeug.utils import secure_filename
+import logging
 
 app = Flask(__name__)
 
@@ -17,6 +18,9 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+# Set up logging
+logging.basicConfig(level=logging.ERROR)
+logger = logging.getLogger(__name__)
 
 def allowed_file(filename, extensions=['pdf']):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in extensions
@@ -33,8 +37,14 @@ def upload_pdf():
         file = request.files['file']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return render_template('manipulation_options_page.html', filename=filename)
+            try:
+                # PDF upload and saving logic within try-except block
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                return render_template('manipulation_options_page.html', filename=filename)
+            except Exception as e:
+                # Log the exception and return a user-friendly error message
+                logger.error(f"PDF processing failed: {str(e)}")
+                return "Error processing PDF. Please ensure the file is not corrupted and try again."
     return 'File upload failed, ensure the file is a PDF.'
 
 
@@ -146,4 +156,3 @@ def convert_to_powerpoint():
     return send_file(output, as_attachment=True, attachment_filename=filename.replace('.pdf', '.pptx'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
