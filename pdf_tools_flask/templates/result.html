@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Manipulation Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PDF Manipulation Result</h1>
+        </header>
+        <section class="result-section">
+            {% if result_link %}
+                <p>Operation completed successfully. You can download the file using the link below:</p>
+                <a href="{{ result_link }}" class="download-link">Download File</a>
+            {% elif extracted_text %}
+                <p>Text extracted from the PDF:</p>
+                <textarea class="extracted-text" readonly>{{ extracted_text }}</textarea>
+            {% else %}
+                <p>There was an issue processing your request. Please try again or contact support if the problem persists.</p>
+            {% endif %}
+        </section>
+        <footer>
+            <a href="{{ url_for('index') }}" class="back-link">Go Back</a>
+        </footer>
+    </div>
+</body>
+</html>
+{% endblock %}
