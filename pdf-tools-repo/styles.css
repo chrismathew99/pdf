@@ -1,0 +1,95 @@
+/* styles.css - Styling for PDF manipulation website */
+
+/* Importing Bootstrap for responsive design */
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Header styles */
+.header {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Main content styles */
+.main-content {
+    padding: 20px;
+}
+
+/* File input styling */
+.file-input {
+    margin-bottom: 20px;
+}
+
+/* Action buttons styling */
+.action-buttons {
+    margin-top: 20px;
+}
+
+.btn-custom {
+    background-color: #28a745;
+    color: white;
+    margin-right: 10px;
+}
+
+.btn-custom:hover {
+    background-color: #218838;
+}
+
+/* Results display section */
+.results-section {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+}
+
+.result-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+/* Ensure all elements are properly aligned */
+.container, .row, .col {
+    position: relative;
+    width: 100%;
+}
+
+/* Customizing file input button */
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.custom-file-input::before {
+    content: 'Select PDF';
+    display: inline-block;
+    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+}
+
+.custom-file-input:hover::before {
+    border-color: black;
+}
+
+.custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}

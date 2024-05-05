@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Manipulation Tools</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header text-center">
+        PDF Manipulation Tools
+    </header>
+    <main class="main-content container">
+        <div class="file-input">
+            <input type="file" id="uploadPdf" class="custom-file-input">
+        </div>
+        <div class="action-buttons">
+            <button id="compressPdf" class="btn btn-custom" role="button">Compress PDF</button>
+            <button id="convertToWord" class="btn btn-custom" role="button">Convert to Word</button>
+            <button id="convertToImage" class="btn btn-custom" role="button">Convert to Image</button>
+            <button id="convertToExcel" class="btn btn-custom" role="button">Convert to Excel</button>
+        </div>
+        <div id="message" class="results-section"></div>
+    </main>
+    <footer class="footer text-center">
+        &copy; 2023 PDF Manipulation Tools. All rights reserved.
+    </footer>
+    <script defer type="module" src="main.js"></script>
+</body>
