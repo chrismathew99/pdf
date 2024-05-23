@@ -1,0 +1,103 @@
+/* style.css - Styles for PDF Tools Project */
+
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header styles */
+header {
+    background-color: #333;
+    color: #fff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #0779e4 3px solid;
+}
+
+header h1 {
+    text-align: center;
+    margin: 0;
+    padding-bottom: 15px;
+}
+
+/* Form styling */
+.form-upload {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.form-upload input[type="file"] {
+    margin-bottom: 20px;
+}
+
+/* Button styles */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+/* Different button colors for various PDF manipulation options */
+.button-upload {background-color: #3498db;}
+.button-merge {background-color: #9b59b6;}
+.button-split {background-color: #e74c3c;}
+.button-extract {background-color: #f1c40f;}
+.button-convert-image {background-color: #1abc9c;}
+.button-convert-excel {background-color: #2ecc71;}
+.button-convert-word {background-color: #34495e;}
+.button-convert-ppt {background-color: #e67e22;}
+
+/* Progress bar styles */
+.progress-bar {
+    width: 100%;
+    background-color: #ddd;
+}
+
+.progress {
+    height: 20px;
+    background-color: #4CAF50;
+    width: 0%;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+}
+
+/* Message styles */
+.message {
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.success {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.error {
+    background-color: #f2dede;
+    color: #a94442;
+}

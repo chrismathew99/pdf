@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Manipulation Result</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="static/js/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>PDF Manipulation Result</h1>
+    </header>
+    <main>
+        <div id="resultMessage" class="message" style="display: none;"></div>
+        <section id="resultSection">
+            <!-- This section will be dynamically filled based on the operation performed -->
+        </section>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const resultData = JSON.parse('{{ result_data | tojson | safe }}');
+                const resultSection = document.getElementById('resultSection');
+                const resultMessage = document.getElementById('resultMessage');
+
+                function displayResult() {
+                    if (resultData.success) {
+                        resultMessage.classList.add('success');
+                        resultMessage.textContent = resultData.message;
+                        resultMessage.style.display = 'block';
+
+                        if (resultData.filePath) {
+                            let element;
+                            const fileType = resultData.filePath.split('.').pop().toLowerCase();
+
+                            switch (fileType) {
+                                case 'jpg':
+                                case 'jpeg':
+                                case 'png':
+                                case 'gif':
+                                    element = document.createElement('img');
+                                    element.src = resultData.filePath;
+                                    element.alt = 'Result Image';
+                                    break;
+                                case 'xlsx':
+                                case 'xls':
+                                case 'docx':
+                                case 'doc':
+                                case 'ppt':
+                                case 'pptx':
+                                    element = document.createElement('iframe');
+                                    element.src = resultData.filePath;
+                                    element.style.width = '100%';
+                                    element.style.height = '500px';
+                                    break;
+                                default:
+                                    element = document.createElement('a');
+                                    element.href = resultData.filePath;
+                                    element.textContent = 'Download Result';
+                                    element.classList.add('button');
+                            }
+                            
+                            resultSection.appendChild(element);
+                        }
+                    } else {
+                        resultMessage.classList.add('error');
+                        resultMessage.textContent = resultData.message || 'An error occurred.';
+                        resultMessage.style.display = 'block';
+                    }
+                }
+
+                displayResult();
+            });
+        </script>
+    </main>
+</body>
+</html>
